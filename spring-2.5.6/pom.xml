@@ -416,6 +416,11 @@
 			<version>1.4</version>
 			<optional>true</optional>
 		</dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.7</version>
+        </dependency>
 	</dependencies>
 	<distributionManagement>
 		<repository>
