@@ -15,8 +15,44 @@
     <bean name="outputService" class="us.codecraft.springlearning.OutputService">
     </bean>
 
-    <aop:aspectj-autoproxy />
+    <bean name="myaspect" class="us.codecraft.springlearning.TimerAspect">
+        <property name="helloWorldService" ref="helloWorldService"></property>
+    </bean>
 
-    <bean name="myaspect" class="us.codecraft.springlearning.TimerAspect"></bean>
+    <bean id="timeInterceptor" class="us.codecraft.springlearning.TimerAspect"></bean>
+
+    <aop:aspectj-autoproxy/>
+
+    <aop:config>
+        <aop:aspect id="aroundExample" ref="timeInterceptor">
+            <aop:pointcut id="timerPointcut"
+                          expression="execution(* us.codecraft.springlearning.*Service.*(..))"></aop:pointcut>
+            <aop:around
+                    pointcut-ref="timerPointcut"
+                    method="timer"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="pre" class="us.codecraft.springlearning.BeanInitializeLogger"></bean>
+
+    <bean id="autoProxyCreator"
+          class="org.springframework.aop.aspectj.autoproxy.AspectJAwareAdvisorAutoProxyCreator"></bean>
+
+    <!--<bean id="timeInterceptor" class="us.codecraft.springlearning.TimerAspect"></bean>-->
+
+    <!--<bean id="aroundExample" class="org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor">-->
+        <!--<property name="pointcut">-->
+            <!--<bean id="timerPointcut" class="org.springframework.aop.aspectj.AspectJExpressionPointcut">-->
+                <!--<property name="expression"-->
+                          <!--value="execution(* us.codecraft.springlearning.*Service.*(..))"></property>-->
+            <!--</bean>-->
+        <!--</property>-->
+        <!--<property name="advice">-->
+            <!--<bean class="org.springframework.aop.aspectj.AspectJAroundAdvice">-->
+                <!--<property name="method" value="timer"></property>-->
+                <!--<property name="aspectInstanceName" ref="timeInterceptor"></property>-->
+            <!--</bean>-->
+        <!--</property>-->
+    <!--</bean>-->
 
 </beans>

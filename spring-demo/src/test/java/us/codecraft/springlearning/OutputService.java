@@ -5,7 +5,13 @@ package us.codecraft.springlearning;
  */
 public class OutputService {
 
-    public void output(String text){
-        System.out.println(text);
+	private int a = 1;
+
+	public void output(String text) {
+		System.out.println(text);
+	}
+
+    public int getA() {
+        return a;
     }
 }
